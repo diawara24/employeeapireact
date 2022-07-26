@@ -19,6 +19,17 @@ class ListEmployee extends Component{
           })
       }
 
+      deleteRow(id, e){
+        axios.delete(`https://62dfa15c9c47ff309e89e4fe.mockapi.io/employee/${id}`)
+        .then(response => {
+        console.log(response);
+        console.log(response.data);
+        const employees = this.state.employees.filter(item => item.id !== id);
+        this.setState({ employees });
+        })
+        
+      }
+
       render(){
         return(
             <div className="table-wrapper">

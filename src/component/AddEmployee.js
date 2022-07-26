@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 
 import axios from 'axios';
 
+
 class AddEmployee extends Component{
     state = {
         nom: '',
@@ -54,6 +55,12 @@ class AddEmployee extends Component{
             password: this.state.password
           };
 
+          var reg = new RegExp('^[0-9]*$');
+          if (reg.test(employee.salaire) == false) {
+            alert('Salaire: seulement les valeurs numeriques sont accepté.');
+            return;
+          }
+
           if (employee.password != this.state.confirmPassword ) {
             alert("Les deux mot de passe ne se resemblent pas")
 
@@ -61,10 +68,10 @@ class AddEmployee extends Component{
           }
 
           if (employee.grade == "ingénieur" && employee.salaire < 3000) {
-            alert("Le salire minimal doit etre superieur à 3000")
+            alert("Le salaire minimal d'un ingénieur doit etre superieur à 3000")
             return;
           }else if (employee.grade == "administrateur" && employee.salaire < 4500) {
-            alert("Le salire minimal doit etre superieur à 4500")
+            alert("Le salaire minimal d'un administrateur doit etre superieur à 4500")
             return;
           }
 
@@ -88,19 +95,19 @@ class AddEmployee extends Component{
                     <fieldset >
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Nom</Form.Label>
-                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeNom} />
+                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeNom} required />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Adresse</Form.Label>
-                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeAdresse} />
+                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeAdresse} required />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Salaire</Form.Label>
-                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeSalaire} />
+                            <Form.Control id="TextInput" placeholder="" onChange={this.onChangeEmployeSalaire}  required/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="Select">Grade</Form.Label>
-                            <Form.Select id="Select" onChange={this.onChangeEmployeGrade}>
+                            <Form.Select id="Select" onChange={this.onChangeEmployeGrade} required>
                                 <option></option>
                                 <option>ouvrier</option>
                                 <option>ingénieur</option>
@@ -109,15 +116,15 @@ class AddEmployee extends Component{
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Email</Form.Label>
-                            <Form.Control type='email' id="TextInput" placeholder=""  onChange={this.onChangeEmployeEmail}/>
+                            <Form.Control type='email' id="TextInput" placeholder=""  onChange={this.onChangeEmployeEmail} required/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Password</Form.Label>
-                            <Form.Control type='password' id="TextInput" placeholder="" onChange={this.onChangeEmployePassword} />
+                            <Form.Control type='password' id="TextInput" placeholder="" onChange={this.onChangeEmployePassword} required/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="TextInput">Confirmation Password</Form.Label>
-                            <Form.Control type='password' id="TextInput" placeholder="" onChange={this.onChangeEmployeConfirmPassword} />
+                            <Form.Control type='password' id="TextInput" placeholder="" onChange={this.onChangeEmployeConfirmPassword} required/>
                         </Form.Group>
                         <Button type="submit">Submit</Button>
                     </fieldset>
